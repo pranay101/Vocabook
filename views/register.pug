@@ -1,0 +1,26 @@
+extends layout.pug
+
+block content
+	h1= title
+	form(method="post" action="/register/submit")
+		label(for='name') Name
+		input(type='text', name='name', id= name)
+		br
+		br
+		label(for='user-name') Username
+		input(type='text', name='user-name', id=user-name)
+		br
+		br
+		label(for="email") Email
+		input(type='email', name='email', id=email)
+		br
+		br
+		label(for='password') Password
+		input(type='password', name='password', id=password)
+		br
+		br
+		label(for='confirm_password') Re-type Password
+		input(type='password', name='confirm_password', id= confirm_password)
+		br
+		br
+		input(type="submit", name="submit")

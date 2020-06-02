@@ -1,0 +1,10 @@
+# To start the application:
+# rename this file to ".env" make sure to remove the txt extension
+# provide the following details
+
+# and run the command npm start
+
+SECRET_KEY=super_secret_key_you_should_change
+MFLIX_DB_URI=mongodb+srv://m220student:m220password@<your-atlas-cluster-address>
+MFLIX_NS=sample_mflix
+PORT=5000
