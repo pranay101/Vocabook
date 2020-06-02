@@ -1,0 +1,22 @@
+extends layout.pug
+
+block content
+	h1= title
+	form(action='/signup', method='POST')
+	label(for='name') Name
+	input(type='text', name='name')
+	br 
+	br
+	label(for='user-name') Username
+	input(type='text', name='user-name')
+	br 
+	br
+	label(for='password') Password
+	input(type='password', name='password')
+	br 
+	br
+	label(for='confirm_pass') Re-type Password
+	input(type='password', name='confirm-pass')
+	br 
+	br
+	button(type='submit') Register
