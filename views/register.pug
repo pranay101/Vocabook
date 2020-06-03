@@ -2,13 +2,13 @@ extends layout.pug
 
 block content
 	h1= title
-	form(method="post" action="/register/submit")
+	form(method="post" action="/users/submit")
 		label(for='name') Name
 		input(type='text', name='name', id= name)
 		br
 		br
-		label(for='user-name') Username
-		input(type='text', name='user-name', id=user-name)
+		label(for='username') Username
+		input(type='text', name='username', id=username)
 		br
 		br
 		label(for="email") Email
