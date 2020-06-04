@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
+
 const userSchema = require("../models/schema/User")
 
 router.get('/', function (req, res, next) {
@@ -48,15 +49,19 @@ router.post('/submit', function (req, res) {
       },
     );
   }
+  if(req.body.password.length < 5)
+  {
+	  res.render('message',{message_headind:"password length should be greator than 5"})
+  }
   else {
     userSchema.find({ username: req.body.username })
       .exec()
       .then(user => {
         if (user.length >= 1) {
-          return res.status(409).json({
-            message: "Mail exists"
-          });
-        } else {
+			console.log("Username already exists");
+			res.render('message',{message_headind:"username already exists"});
+		  }
+        else {
           // Store hash in your password DB.
           bcrypt.hash(req.body.password, 10, function (err, hash) {
             if (err => {
@@ -86,7 +91,10 @@ router.post('/submit', function (req, res) {
               });
             });
         }
-      });
+	  })
+	  .catch(err => {
+		  res.render('message',{message_headind: err})
+	  });
   }
 });
 
