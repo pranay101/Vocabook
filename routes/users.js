@@ -5,21 +5,20 @@ const bcrypt = require('bcrypt');
 
 const userSchema = require("../models/schema/User")
 
-
-
 router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Hey, there' });
+  res.render('register', { title: 'Register' });
 });
 
 router.get('/register', function (req, res, next) {
   res.render('register', { title: 'Register' });
 });
 
+
 router.get('/data', function (req, res, next) {
   userSchema.find()
     .exec()
     .then(doc => {
-      if (doc.length<1) {
+      if (doc.length < 1) {
         res.send("No docuemnt found")
       }
       console.log(doc);
@@ -32,38 +31,54 @@ router.get('/data', function (req, res, next) {
 
 });
 router.post('/submit', function (req, res) {
-  if( !req.body.username || !req.body.email || !req.body.name || !req.body.password || req.body.password !== req.body.confirm_password)
-  {
-    res.render('message',
-      { message_headind : "Fill in the details properly",
-        message_body : "click on the register from the nav"
+
+  if (!req.body.username || !req.body.email || !req.body.name || !req.body.password) {
+    return res.render('message',
+      {
+        message_headind: "Fill in the details properly",
+        message_body: "click on the register from the nav"
       },
     );
-
   }
-  userSchema.find({username :username})
-  .exec()
-  .then(user => {
-    if (user.length >= 1) {
-      return res.status(409).json({
-        message: "Mail exists"
-      });
-    } else {
-      
-        } else {
-          const user = new User({
-            _id: new mongoose.Types.ObjectId(),
-            email: req.body.email,
-            password: hash
+  if (req.body.password !== req.body.confirm_password) {
+    res.render('message',
+      {
+        message_headind: "Password don't match",
+        message_body: "click on the register from the nav"
+      },
+    );
+  }
+  else {
+    userSchema.find({ username: req.body.username })
+      .exec()
+      .then(user => {
+        if (user.length >= 1) {
+          return res.status(409).json({
+            message: "Mail exists"
           });
-          user
-            .save()
-            .then(result => {
-              console.log(result);
-              res.status(201).json({
-                message: "User created"
+        } else {
+          // Store hash in your password DB.
+          bcrypt.hash(req.body.password, 10, function (err, hash) {
+            if (err => {
+              res.status(500).json({
+                message: err,
+              })
+            });
+
+            const userData = new userSchema({
+              _id: new mongoose.Types.ObjectId(),
+              name: req.body.name,
+              email: req.body.email,
+              username: req.body.username,
+              hash: hash,
+            });
+            userData
+              .save()
+              .then(result => {
+                console.log(result.username + "Registered");
+                res.render("message", { message_headind: result.username + "Registered", message_body: "goto login page" })
               });
-            })
+          })
             .catch(err => {
               console.log(err);
               res.status(500).json({
@@ -72,41 +87,7 @@ router.post('/submit', function (req, res) {
             });
         }
       });
-    }
-  });
-});
-  // Store hash in your password DB.
-  bcrypt.hash(req.body.password, 10, function(err, hash) {
-    if(err =>{
-      res.status(500).json({
-        message:err,
-      })
-    });
-    const userData = new userSchema({
-      _id: new mongoose.Types.ObjectId(),
-      name: req.body.name,
-      email: req.body.email,
-      username: req.body.username,
-      hash: hash,
-    });
-    userData
-      .save()
-      .then(result => {
-        console.log(result);
-        res.status(201).json({
-          message: "Handling POST requests to /products",
-          createdProduct: result
-        });
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({
-          error: err
-        });
-      });
-  });
-
-  
+  }
 });
 
 router.delete("/:userId", function (req, res, next) {
@@ -114,13 +95,13 @@ router.delete("/:userId", function (req, res, next) {
     .exec()
     .then(result => {
       res.status(200).json({
-        message:"User deleted"
+        message: "User deleted"
       });
     })
-    .catch( err => {
-        res.status(500).json({
-          message : err,
-        })
+    .catch(err => {
+      res.status(500).json({
+        message: err,
+      })
     });
 })
 
