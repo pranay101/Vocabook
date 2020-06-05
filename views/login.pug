@@ -1,0 +1,16 @@
+extends layout
+
+block content
+    h1 #{title}
+    if log_first
+        h2 you need to login first
+    form(action="/users/login/submit", method="post")
+        label(for='username') Username
+        input(type='text', name='username', id=username)
+        br
+        br
+        label(for='password') Password
+        input(type='password', name='password', id=password)
+        br
+        br
+        input(type="submit", name="submit")

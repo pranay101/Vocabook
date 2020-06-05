@@ -1,75 +1,92 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+const session = require("express-session");
 
+const userSchema = require("../models/schema/User");
 
-const userSchema = require("../models/schema/User")
+var active_session = false;
 
-router.get('/', function (req, res, next) {
-  res.render('register', { title: 'Register' });
+// basic redirection
+
+router.get("/", function (req, res, next) {
+  res.render("message", { message_headind: "userpage",login:false });
 });
 
-router.get('/register', function (req, res, next) {
-  res.render('register', { title: 'Register' });
+router.get("/register", function (req, res, next) {
+  res.render("register", { title: "Register" });
 });
 
+// route which provide the data of all the users
 
-router.get('/data', function (req, res, next) {
-  userSchema.find()
+router.get("/data", function (req, res, next) {
+  userSchema
+    .find()
     .exec()
-    .then(doc => {
+    .then((doc) => {
       if (doc.length < 1) {
-        res.send("No docuemnt found")
+        res.send("No docuemnt found");
       }
       console.log(doc);
-      res.status(200).json(doc)
+      res.status(200).json(doc);
     })
-    .catch(err => {
-      console.error((err));
-      res.status(201).json(err)
-    })
-
+    .catch((err) => {
+      console.error(err);
+      res.status(201).json(err);
+    });
 });
-router.post('/submit', function (req, res) {
 
-  if (!req.body.username || !req.body.email || !req.body.name || !req.body.password) {
-    return res.render('message',
-      {
-        message_headind: "Fill in the details properly",
-        message_body: "click on the register from the nav"
-      },
-    );
+// User Registration Section
+
+router.post("/submit", function (req, res) {
+  // validation before storing the database
+
+  // check is all the fiels are provided or not
+  if (
+    !req.body.username ||
+    !req.body.email ||
+    !req.body.name ||
+    !req.body.password
+  ) {
+    return res.render("message", {
+      message_headind: "Fill in the details properly",
+      message_body: "click on the register from the nav",
+    });
   }
+
   if (req.body.password !== req.body.confirm_password) {
-    res.render('message',
-      {
-        message_headind: "Password don't match",
-        message_body: "click on the register from the nav"
-      },
-    );
+    res.render("message", {
+      message_headind: "Password don't match",
+      message_body: "click on the register from the nav",
+    });
   }
-  if(req.body.password.length < 5)
-  {
-	  res.render('message',{message_headind:"password length should be greator than 5"})
-  }
-  else {
-    userSchema.find({ username: req.body.username })
+  // Security measures Password length should be greator than 5
+  if (req.body.password.length < 5) {
+    res.render("message", {
+      message_headind: "password length should be greator than 5",
+    });
+  } else {
+    // checking if the username exists on the database or not
+    userSchema
+      .find({ username: req.body.username })
       .exec()
-      .then(user => {
+      .then((user) => {
         if (user.length >= 1) {
-			console.log("Username already exists");
-			res.render('message',{message_headind:"username already exists"});
-		  }
-        else {
+          console.log("Username already exists");
+          res.render("message", { message_headind: "username already exists" });
+        } else {
           // Store hash in your password DB.
+          // converting the password in to hash
           bcrypt.hash(req.body.password, 10, function (err, hash) {
-            if (err => {
-              res.status(500).json({
-                message: err,
-              })
-            });
-
+            if (
+              (err) => {
+                res.status(500).json({
+                  message: err,
+                });
+              }
+            );
+            //creating a new userschema using the defined schema
             const userData = new userSchema({
               _id: new mongoose.Types.ObjectId(),
               name: req.body.name,
@@ -79,39 +96,126 @@ router.post('/submit', function (req, res) {
             });
             userData
               .save()
-              .then(result => {
-                console.log(result.username + "Registered");
-                res.render("message", { message_headind: result.username + "Registered", message_body: "goto login page" })
+              .then((result) => {
+                console.log(result.name + "   Registered");
+                res.render("message", {
+                  message_headind: "Registered",
+                  message_body: "goto login page",
+                });
+              })
+              .catch((err) => {
+                console.log(err);
+                res.status(500).json({
+                  error: err,
+                });
               });
-          })
-            .catch(err => {
-              console.log(err);
-              res.status(500).json({
-                error: err
-              });
-            });
+          });
         }
-	  })
-	  .catch(err => {
-		  res.render('message',{message_headind: err})
-	  });
+      })
+      .catch((err) => {
+        res.render("message", { message_headind: err });
+      });
   }
 });
 
-router.delete("/:userId", function (req, res, next) {
-  userSchema.remove({ _id: req.params.userId })
-    .exec()
-    .then(result => {
-      res.status(200).json({
-        message: "User deleted"
-      });
-    })
-    .catch(err => {
-      res.status(500).json({
-        message: err,
+//////////////////////////////////////
+
+// User  Login Section
+
+//////////////////////////////////////
+
+// display login page
+router.get("/login", function (req, res) {
+  return res.render("login", { title: "Login",log_first:false, });
+});
+
+// submit login form here
+
+router.post("/login/submit", function (req, res, next) {
+  // Validate data
+  if (!req.body.username || !req.body.password) {
+    res.render("message", { message_headind: "Fill in the details properly" });
+  } else {
+    userSchema
+      .find({ username: req.body.username })
+      .exec()
+      .then((user) => {
+        if (user.length < 1) {
+          console.log("user not exist");
+          res.render("message", {
+            message_headind:
+              "there's no user with that username. may be you want to register to our website",
+          });
+        }
+        bcrypt
+          .compare(req.body.password, user[0].hash, (err, result) => {
+            if (err) {
+              res.render("message", { message_headind: "Invalid login attempt" });
+            }
+            if (result) {
+              req.session.userName = req.body.username;
+              //res.render("message", { message_headind: "welcome to dashboard" });
+              active_session = true;
+              res.redirect("/users/dashboard");
+          } else {
+            res.render("message", {
+              message_headind: "Invalid login attempt 2",
+            });
+          }
+        });
       })
-    });
+      .catch((err) => {
+        console.log(err);
+        res.render("message", {
+          message_headind: "An error occured, please try again",
+        });
+      });
+  }
+});
+
+// user dashboard once he/she has logged index
+
+router.get("/dashboard", function (req, res, next) {
+  if(active_session)
+  {
+    res.render("message", { message_headind: "insied dashboard",login:true, });
+  }
+    res.redirect("/users/login");  
+
+  
+});
+
+
+
+
+//logout
+
+router.get("/logout", function (req, res, next){
+  req.session.destroy(function(err) {
+    if (err) {
+      res.render("message", { message_headind: "inside dashboard",login:true });
+    }
+    active_session=false;
+    res.redirect('/users/login');
+    
+  })
 })
 
+// Delete user section
 
+router.delete("/:userId", function (req, res, next) {
+  userSchema
+    .remove({ _id: req.params.userId })
+    .exec()
+    .then((result) => {
+      res.status(200).json({
+        message: "User deleted",
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: err,
+      });
+    });
+});
 module.exports = router;

@@ -5,9 +5,14 @@ html(lang='en')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     title VocaBook
   body
-    a(href='./') Home
-    a(href='./about') About
-    a(href='./login') Login
-    a(href='./register') Register
+    a(href='../') Home
+    a(href='/about') About
+
+    a(href='/users/register') Register
+    if login
+      a(href='/users/logout') logout
+    else
+      a(href='/users/login') Login
+      
 
     block content
