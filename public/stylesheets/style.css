@@ -9,3 +9,11 @@ a {
 .bg-dark-header {
   background-color: #1b1c1d !important;
 }
+
+@media (max-width: 768px) {
+  .center_align_mobile
+  {
+    text-align: center !important;
+    justify-content:center !important;
+  }
+}

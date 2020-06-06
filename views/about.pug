@@ -16,7 +16,7 @@ block content
                     h2 About Us
                     hr
                     p
-                        | I am a 19 year old developer from India. The motive behind this project is my quest to learn both programming and language. Suggestion or contribution are welcomed.   
+                        | I am a 19 year old developer from India. The motive behind this project is my quest to learn both programming and language. Suggestion and contribution are welcomed.   
                     br
                     blockquote.blockquote.text-right.mr-5
                         p.mb-3
@@ -25,8 +25,14 @@ block content
                             | Johann Wolfgang von Goethe 
                             //- cite(title='Source Title') Source Title
                     br
-                    a.btn.btn-primary.btn-lg(href='#') Call to Action »
-                .col-md-4.mb-5
+                    form(action="/user/review", method="post" name="review")
+                        .input-group.input-group-lg
+                            textarea.form-control(aria-label='Enter Your Views' placeholder="Enter Your Views Here")(style="max-width: 90% !important")
+                        br     
+                        button.btn.btn-primary(type='submit') Submit
+
+
+                .col-md-4.mb-5.center_align_mobile
                     h2 Contact Us
                     hr
                     address
@@ -44,9 +50,8 @@ block content
         // /.container
         // Footer
         footer.py-5.bg-dark
-        .container
-            p.m-0.text-center.text-white Copyright © Your Website 2019
+            .container
+                p.m-0.text-center.text-white Copyright © VocaBook 2020
         // /.container
         // Bootstrap core JavaScript
-        //- script(src='vendor/jquery/jquery.min.js')
-        //- script(src='vendor/bootstrap/js/bootstrap.bundle.min.js')
+        

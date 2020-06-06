@@ -18,6 +18,15 @@ Hi, There.  **VocaBook** is the free node application that helps you in enhance 
  
  * Install Dependencies.
  `npm install `
+ * open views -> layout.pug and add the following code under head tag
+    ` link(href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk", crossorigin="anonymous")
+
+    script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js')
+
+    script(src='https://code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  crossorigin="anonymous"')
+  `
  
  * Rename Sample env.txt to .env
  * Enter the Secret Key.
