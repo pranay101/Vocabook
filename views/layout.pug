@@ -3,16 +3,50 @@ html(lang='en')
   head
     meta(charset='UTF-8')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(rel='shortcut icon', href='/images/favicon.ico', type='image/x-icon')
+    link(rel='icon', href='/images/favicon.ico', type='image/x-icon')
+    link(rel="stylesheet", href="/stylesheets/style.css")
+    link(rel="stylesheet", href="/stylesheets/bootstrap.min.css")
     title VocaBook
   body
-    a(href='../') Home
-    a(href='/about') About
+    nav.navbar.navbar-expand-md.navbar-dark.bg-dark.navbar-inverse.fixed-top.bg-color-dark(style=' background-color: #1b1c1d')
+      a.navbar-brand.ml-3(href='/')
+        img(src='/images/logo.png', height='30', alt='VocaBook')
+      button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarCollapse')
+        span.navbar-toggler-icon
+      #navbarCollapse.collapse.navbar-collapse
+        .navbar-nav.ml-auto
+          if active ==="home"
+            a.nav-item.nav-link.active(href='../') Home
+          else
+            a.nav-item.nav-link(href='../') Home
+          if active === "about"
+            a.nav-item.nav-link.mr-3.active(href='/index/about') About
+          else
+            a.nav-item.nav-link.mr-3(href='/index/about') About
+          //-a.nav-item.nav-link(href='/users/register') Register
+          if login
+            .navbar-nav.ml-auto
+              button.nav-item.btn.btn-outline-light.mr-3(type='button') Logout
+              //-a.nav-item.nav-link(href='#') Logout
+          else
+            .navbar-nav.ml-auto
+              a(href="/users/register")
+                button.nav-item.btn.btn-outline-light.mr-3(type='button') Register
+              a(href="/users/login")
+                button.nav-item.btn.btn-outline-light.mr-3(type='button') Login
 
-    a(href='/users/register') Register
-    if login
-      a(href='/users/logout') logout
-    else
-      a(href='/users/login') Login
+
+          
+
+    //- a(href='../') Home
+    //- a(href='/about') About
+
+    //- a(href='/users/register') Register
+    //- if login
+    //-   a(href='/users/logout') logout
+    //- else
+    //-   a(href='/users/login') Login
       
 
     block content
