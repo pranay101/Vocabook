@@ -31,36 +31,36 @@ mongoose.connect(process.env.MFLIX_DB_URI,{
 
 
 if (process.env.environment === "development") {
-  app.set('trust proxy', 1) // trust first proxy
-
+   // trust first proxy
+  app.set('trust proxy', '127.0.0.1')
 }
+if(process.env.environment === "development"){
+  var cookies_storing_type = "auto";
+}
+else{
+  var cookies_storing_type = true;
+}
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+// support parsing of application/json type post data
+app.use(bodyParser.json());
+//support parsing of application/x-www-form-urlencoded post data
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
   secret: process.env.SECRET_KEY,
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: true }
+  cookie: { secure: cookies_storing_type }
 })); 
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
-
-// support parsing of application/json type post data
-app.use(bodyParser.json());
-
-//support parsing of application/x-www-form-urlencoded post data
-app.use(bodyParser.urlencoded({ extended: true }));
-
-
-
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-
-app.use(cookieParser());
-
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/index',indexRouter);

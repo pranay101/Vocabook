@@ -16,8 +16,10 @@
     "express-session": "^1.17.1",
     "express-validator": "^6.5.0",
     "http-errors": "~1.6.3",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.16",
     "morgan": "~1.9.1",
+    "node-localstorage": "^2.1.6",
     "pug": "2.0.0-beta11"
   },
   "devDependencies": {

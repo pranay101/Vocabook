@@ -2,9 +2,19 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const session = require("express-session");
+const cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken');
+const checkAuth = require("../models/middleware/middleware")
+ 
 
 const userSchema = require("../models/schema/User");
+
+//
+
+
+// middleware
+
+
 
 var active_session = false;
 
@@ -123,9 +133,13 @@ router.post("/submit", function (req, res) {
 // User  Login Section
 
 //////////////////////////////////////
+router.get("/login",checkAuth,function (req, res) {
+  res.redirect("/users/dashboard")
+});
+
 
 // display login page
-router.get("/login", function (req, res) {
+router.get("/login/page",function (req, res) {
   return res.render("login", { title: "Login",log_first:false, });
 });
 
@@ -153,9 +167,12 @@ router.post("/login/submit", function (req, res, next) {
               res.render("message", { message_headind: "Invalid login attempt" });
             }
             if (result) {
-              req.session.userName = req.body.username;
+              var token = jwt.sign({ 
+                userId: user[0]._id,
+                userName : user[0].username },process.env.SECRET_KEY_JWT);
+              req.session.userId = token;
               //res.render("message", { message_headind: "welcome to dashboard" });
-              active_session = true;
+              // active_session = true;
               res.redirect("/users/dashboard");
           } else {
             res.render("message", {
@@ -175,13 +192,18 @@ router.post("/login/submit", function (req, res, next) {
 
 // user dashboard once he/she has logged index
 
-router.get("/dashboard", function (req, res, next) {
-  if(active_session)
-  {
-    res.render("message", { message_headind: "insied dashboard",login:true, });
-  }
-    res.redirect("/users/login");  
-
+router.get("/dashboard",checkAuth,function (req, res, next) {
+  var decoded = jwt.verify(req.session.userId,process.env.SECRET_KEY_JWT);
+  res.render("message", { message_headind: "Welcome "+ decoded.userName ,login:true, });
+  // if (req.session.userId) {
+  //   console.log("inside dash")
+  //   var decoded = jwt.verify(req.session.userId,process.env.SECRET_KEY_JWT);
+  //   res.render("message", { message_headind: "Welcome "+ decoded.userName ,login:true, });
+  // }
+  // else{
+  //   res.redirect('/')
+  // }
+    
   
 });
 
