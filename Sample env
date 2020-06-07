@@ -8,3 +8,7 @@ SECRET_KEY=super_secret_key_you_should_change
 MFLIX_DB_URI=mongodb+srv://m220student:m220password@<your-atlas-cluster-address>
 MFLIX_NS=sample_mflix
 PORT=5000
+
+environment=development
+SECRET_KEY_JWT=super_secret_key_you_should_change
+MY_IP= Enter your local host ip (eg : 127.x.3.2)

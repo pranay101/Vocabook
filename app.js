@@ -32,7 +32,7 @@ mongoose.connect(process.env.MFLIX_DB_URI,{
 
 if (process.env.environment === "development") {
    // trust first proxy
-  app.set('trust proxy', '127.0.0.1')
+  app.set('trust proxy', process.env.MY_IP)
 }
 if(process.env.environment === "development"){
   var cookies_storing_type = "auto";
