@@ -25,7 +25,7 @@ a {
   
 #hero {
   width: 100% !important;
-  height: 100% !important;
+  height: 100vh !important;
   background-image: url("../images/Background.jpg") !important;
   background-size: cover !important;
   position: relative !important;
@@ -63,11 +63,11 @@ a {
 
   #hero h1 {
     margin: 30px 0 10px 0;
-    font-size: 48px;
+    font-size: 62px;
     font-weight: 700;
     line-height: 56px;
-    text-transform: uppercase;
-    color: #fff;
+    /* text-transform: uppercase; */
+    color: #1b1c1d;
   }
   
   @media (max-width: 768px) {
@@ -78,7 +78,7 @@ a {
   }
   
   #hero h2 {
-    color: #eee;
+    color: #1b1c1d;
     margin-bottom: 50px;
     font-size: 24px;
   }
@@ -94,20 +94,21 @@ a {
   #hero .btn-get-started {
     font-family: "Poppins", sans-serif;
     text-transform: uppercase;
-    font-weight: 500;
+    font-weight: 800;
     font-size: 16px;
     letter-spacing: 1px;
     display: inline-block;
     padding: 8px 28px;
+    background:#1b1c1d;
     border-radius: 50px;
-    transition: 0.5s;
+    transition: .5s;
     margin: 10px;
-    border: 2px solid #fff;
-    color: #fff;
+    /* border: 2px solid white; */
+    color: rgb(214, 214, 214);
   }
   
   #hero .btn-get-started:hover {
-    background: #2dc997;
-    border: 2px solid #2dc997;
+    background: rgb(214, 214, 214);
+    color: #1b1c1d;
   }
   
