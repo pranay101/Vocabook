@@ -9,14 +9,6 @@ const checkAuth = require("../models/middleware/middleware")
 
 const userSchema = require("../models/schema/User");
 
-//
-
-
-// middleware
-
-
-
-var active_session = false;
 
 // basic redirection
 
@@ -110,7 +102,7 @@ router.post("/submit", function (req, res) {
                 console.log(result.name + "   Registered");
                 res.render("message", {
                   message_headind: "Registered",
-                  message_body: "Re-directing to Login page",
+                  message_body: "Re-directing to Login page in 3 seconds",
                   redirect_to_login : true ,
                 });
               })

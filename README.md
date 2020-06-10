@@ -41,6 +41,12 @@ Hi, There.  **VocaBook** is the free node application that helps you in enhance 
  - [X] Implement basic PUG templates
  - [X] setup and Connect to MongoDB [Mongoose]
  - [X] Implement Register routes.
- - [ ] Implement Login Routes 
+ - [X] Implement Login Routes 
+ - [X] Start with frontend 
+ - [X] Done with home and about page
+ - [X] Implemented login and register pages 
+ - [X] Styling to project and optimization 
+ - [X] look for security breach and bugs  
+ - [] Implement Login Routes 
 
  
