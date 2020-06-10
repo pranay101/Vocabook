@@ -65,7 +65,7 @@ app.use(session({
 app.use('/', indexRouter);
 app.use('/index',indexRouter);
 app.use('/users', usersRouter);
-app.use('/register', usersRouter);
+// app.use('/register', usersRouter);
 app.use('/login', usersRouter);
 
 

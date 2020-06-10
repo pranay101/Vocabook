@@ -8,3 +8,9 @@ block content
     br
     h1 #{message_headind}
     h5 #{message_body}
+    if(redirect_to_login)
+     script.
+        setTimeout(function () {
+        // after 2 seconds
+        window.location = "/users/login";
+        }, 3000)

@@ -1,26 +1,34 @@
-extends layout.pug
+extends layout
 
 block content
-	h1= title
-	form(method="post" action="/users/submit")
-		label(for='name') Name
-		input(type='text', name='name', id= name)
-		br
-		br
-		label(for='username') Username
-		input(type='text', name='username', id=username)
-		br
-		br
-		label(for="email") Email
-		input(type='email', name='email', id=email)
-		br
-		br
-		label(for='password') Password
-		input(type='password', name='password', id=password)
-		br
-		br
-		label(for='confirm_password') Re-type Password
-		input(type='password', name='confirm_password', id= confirm_password)
-		br
-		br
-		input(type="submit", name="submit")
+    .bgimage_login
+        form.register-form(action="/users/submit", method="post")
+            h1 Register
+            .txtb
+                input(type='text' , autocomplete='off',name='name', id=name)
+                span(data-placeholder='Name')
+            .txtb
+                input(type='text' , autocomplete='off',name='username', id=username)
+                span(data-placeholder='Username')
+            .txtb
+                input(type='email' , autocomplete='off',name='email', id=email)
+                span(data-placeholder='Email')
+            .txtb
+                input(type='password', autocomplete='off', name='password', id=password)
+                span(data-placeholder='Password')
+            .txtb
+                input(type='password', autocomplete='off', name='confirm_password', id=confirm_password)
+                span(data-placeholder='Re-type Password')
+            input.register-btn(type='submit', value='Register')
+            .register-bottom-text
+                | Already have an account  
+                a(href='/users/login') Login
+
+    script.
+        $(".txtb input").on("focus",function(){
+        $(this).addClass("focus");
+        });
+        $(".txtb input").on("blur",function(){
+        if($(this).val() == "")
+        $(this).removeClass("focus");
+        });

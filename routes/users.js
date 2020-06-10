@@ -25,7 +25,7 @@ router.get("/", function (req, res, next) {
 });
 
 router.get("/register", function (req, res, next) {
-  res.render("register", { title: "Register" });
+    res.render("register", {logged_in : req.session.logged_in});
 });
 
 // route which provide the data of all the users
@@ -84,7 +84,7 @@ router.post("/submit", function (req, res) {
       .then((user) => {
         if (user.length >= 1) {
           console.log("Username already exists");
-          res.render("message", { message_headind: "username already exists" });
+          res.render("message", { message_headind: "username already exists", });
         } else {
           // Store hash in your password DB.
           // converting the password in to hash
@@ -110,7 +110,8 @@ router.post("/submit", function (req, res) {
                 console.log(result.name + "   Registered");
                 res.render("message", {
                   message_headind: "Registered",
-                  message_body: "goto login page",
+                  message_body: "Re-directing to Login page",
+                  redirect_to_login : true ,
                 });
               })
               .catch((err) => {
@@ -140,7 +141,7 @@ router.get("/login",checkAuth,function (req, res) {
 
 // display login page
 router.get("/login/page",function (req, res) {
-  return res.render("login", { title: "Login",log_first:false, });
+  return res.render("login", { title: "Login",logged_in : req.session.logged_in, });
 });
 
 // submit login form here
@@ -169,8 +170,10 @@ router.post("/login/submit", function (req, res, next) {
             if (result) {
               var token = jwt.sign({ 
                 userId: user[0]._id,
-                userName : user[0].username },process.env.SECRET_KEY_JWT);
+                userName : user[0].username ,
+                name:user[0].name},process.env.SECRET_KEY_JWT,);
               req.session.userId = token;
+              req.session.logged_in = true;
               //res.render("message", { message_headind: "welcome to dashboard" });
               // active_session = true;
               res.redirect("/users/dashboard");
@@ -194,7 +197,7 @@ router.post("/login/submit", function (req, res, next) {
 
 router.get("/dashboard",checkAuth,function (req, res, next) {
   var decoded = jwt.verify(req.session.userId,process.env.SECRET_KEY_JWT);
-  res.render("message", { message_headind: "Welcome "+ decoded.userName ,login:true, });
+  res.render("message", { message_headind: "Welcome "+ decoded.userName ,logged_in : req.session.logged_in, });
   // if (req.session.userId) {
   //   console.log("inside dash")
   //   var decoded = jwt.verify(req.session.userId,process.env.SECRET_KEY_JWT);
@@ -225,7 +228,7 @@ router.get("/logout", function (req, res, next){
 
 // Delete user section
 
-router.delete("/:userId", function (req, res, next) {
+router.delete("/delete/:userId", function (req, res, next) {
   userSchema
     .remove({ _id: req.params.userId })
     .exec()

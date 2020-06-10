@@ -33,8 +33,9 @@ html(lang='en')
           else
             a.nav-item.nav-link.mr-3(href='/index/about') About
           //-a.nav-item.nav-link(href='/users/register') Register
-          if login
+          if logged_in
             a.nav-item.nav-link.mr-3(href='/users/logout') Logout
+            a.nav-item.nav-link.mr-3(href='/users/dashboard') Dashboard
               //-a.nav-item.nav-link(href='#') Logout
           else
             a.nav-item.nav-link.mr-3(href='/users/register') Register 

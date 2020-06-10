@@ -13,7 +13,7 @@ block content
             input.logbtn(type='submit', value='Login')
             .bottom-text
                 | Don't have account? 
-                a(href='#') Sign up
+                a(href='/users/register') Register
 
     script.
         $(".txtb input").on("focus",function(){
@@ -23,16 +23,3 @@ block content
         if($(this).val() == "")
         $(this).removeClass("focus");
         });
-
-
-
-    //- form(action="/users/login/submit", method="post")
-    //-     label(for='username') Username
-    //-     input(type='text', name='username', id=username)
-    //-     br
-    //-     br
-    //-     label(for='password') Password
-    //-     input(type='password', name='password', id=password)
-    //-     br
-    //-     br
-    //-     input(type="submit", name="submit")
