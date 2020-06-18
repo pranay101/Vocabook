@@ -6,7 +6,7 @@ const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 const checkAuth = require("../models/middleware/middleware");
 
-const userSchema = require("../models/schema/User");
+const userSchema = require("../models/schema/user");
 
 // basic redirection
 
