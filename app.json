@@ -1,0 +1,11 @@
+{
+  "env": {
+    "SECRET_KEY":"1530277890",
+    "MFLIX_DB_URI":"mongodb+srv://mflixAppUser:mflixAppPwd@vocabook-p5vmm.mongodb.net/test?retryWrites=true&w=majority",
+    "MFLIX_NS":"sample_mflix",
+    "PORT": 5000,
+    "environment":"production",
+    "SECRET_KEY_JWT":"1530277890",
+    "API_KEY":"ub3m24uqzua13ht46loejy8xitvdv682qu6xxk4vgshia1z1p"
+  }
+}
