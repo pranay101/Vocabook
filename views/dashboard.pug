@@ -1,0 +1,41 @@
+extends layout
+
+block content
+    .dashboard()
+        .m-3
+            .container-fluid
+                //- .account_settings.pt-5
+                //-     a(href='').mt-5.float-right Account Settings
+
+                .row.mt-5.pt-3
+                    .col-md-8.mt-5.pr-1.border
+                        h1.h1.text-center.py-4.word_heading Word of the Day
+                        .row
+                            .col-sm-8
+                                h3.h2.text-left.py-4.px-3(id="word_name") 
+                        .row
+                            .col-sm-8
+                                h5.h5.text-left.py-4.px-3(id="word_definition") Definition : 
+                        .row
+                            .col-sm-8
+                                h5.h5.text-left.py-4.px-3(id="example") Definition : 
+                        .row
+                            .col-sm-8
+                                h5.h5.text-left.py-4.px-3(id="note") Note : 
+                        
+
+                    .col-md-4.mt-5.border
+                        .py-2
+                            h2.h1.py-3.px-2 Search for a Word
+                            .form-group-md.mx-3
+                                input.form-control(type="text", name="",id="search_word",placeholder=Search)
+                                br
+                                input.btn.btn-primary.mx-2(onclick="word_search()" type="submit", value="Search",id="search")
+                            .search_result(id="search_result")
+                                h1.h1.text-left.py-4.mx-2(id="word") Word :
+                                h5.h5.text-left.py-3.mx-2(id="meaning") Meaning :
+                                h5.h5.text-left.py-3.mx-2(id="example_search") Example :
+
+
+
+                        

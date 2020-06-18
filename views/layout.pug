@@ -13,10 +13,12 @@ html(lang='en')
     //- script(src='https://code.jquery.com/jquery-3.5.1.min.js')
     link(rel="stylesheet", href="/stylesheets/bootstrap.min.css")
     script(src='/javascripts/jquery.min.js')
-    script(src='/javascripts/scripts.js')
     script(src='/javascripts/bootstrap.min.js')
+    
+    script(src='/javascripts/scripts.js')
+    
     title VocaBook
-  body
+  body(onload="wordOfTheDay()")
     nav.navbar.navbar-expand-md.navbar-dark.bg-dark.navbar-inverse.fixed-top.bg-color-dark(style=' background-color: #1b1c1d')
       a.navbar-brand.ml-3(href='/')
         img(src='/images/logo.png', height='30', alt='VocaBook')
@@ -34,8 +36,14 @@ html(lang='en')
             a.nav-item.nav-link.mr-3(href='/index/about') About
           //-a.nav-item.nav-link(href='/users/register') Register
           if logged_in
-            a.nav-item.nav-link.mr-3(href='/users/logout') Logout
             a.nav-item.nav-link.mr-3(href='/users/dashboard') Dashboard
+            .dropdown
+              a.nav-item.nav-link.mr-3.dropbtn() #{name} 
+              .dropdown-content
+                a(href='/users/delete') Delete Account
+                a(href='/index/terms') Terms
+           
+            a.nav-item.nav-link.mr-3(href='/users/logout') Logout
               //-a.nav-item.nav-link(href='#') Logout
           else
             a.nav-item.nav-link.mr-3(href='/users/register') Register 

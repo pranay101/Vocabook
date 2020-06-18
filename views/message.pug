@@ -1,13 +1,14 @@
 extends layout
 
 block content
-    br
-    br
-    br
-    br
-    br
-    h1 #{message_headind}
-    h5 #{message_body}
+    .container
+        br
+        br
+        br
+        br
+        br
+        h1 #{message_headind}
+        h5 #{message_body}
     if(redirect_to_login)
      script.
         setTimeout(function () {

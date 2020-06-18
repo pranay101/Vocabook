@@ -109,3 +109,7 @@ dist
 
 # TernJS port file
 .tern-port
+
+
+#example .json
+example.json

@@ -11,6 +11,7 @@ const session = require('express-session')
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const  dataRouter = require('./routes/data_API');
 const app = express();
 
 
@@ -67,6 +68,7 @@ app.use('/index',indexRouter);
 app.use('/users', usersRouter);
 // app.use('/register', usersRouter);
 app.use('/login', usersRouter);
+app.use('/data', dataRouter);
 
 
 

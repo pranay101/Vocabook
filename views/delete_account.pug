@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    .bgimage_login
+        form.login-form(action="/users/delete", method="post")
+            h2 Delete My Account
+            .txtb
+                input(type='password' , autocomplete='off',name='password', id=password)
+                span(data-placeholder='Enter Password')
+            .txtb
+                input(type='text', autocomplete='off', name='message', id=message)
+                span(data-placeholder='Tell us Why')
+            input.delete_button(type='submit', value='Delete My Account')
+
+    script.
+        $(".txtb input").on("focus",function(){
+        $(this).addClass("focus");
+        });
+        $(".txtb input").on("blur",function(){
+        if($(this).val() == "")
+        $(this).removeClass("focus");
+        });
