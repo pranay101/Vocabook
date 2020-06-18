@@ -24,12 +24,12 @@ block content
                         footer.blockquote-footer
                             | Johann Wolfgang von Goethe 
                             //- cite(title='Source Title') Source Title
-                    br
-                    form(action="/user/review", method="post" name="review")
-                        .input-group.input-group-lg
-                            textarea.form-control(aria-label='Enter Your Views' placeholder="Enter Your Views Here")(style="max-width: 90% !important")
-                        br     
-                        button.btn.btn-primary(type='submit') Submit
+                    //- br
+                    //- form(action="/user/review", method="post" name="review")
+                    //-     .input-group.input-group-lg
+                    //-         textarea.form-control(aria-label='Enter Your Views' placeholder="Enter Your Views Here" id="site_review")(style="max-width: 90% !important")
+                    //-     br     
+                    //-     button.btn.btn-primary(type='submit' onclick = "send_site_message()") Submit
 
 
                 .col-md-4.mb-5.center_align_mobile

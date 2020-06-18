@@ -20,6 +20,7 @@
     "mongoose": "^5.9.16",
     "morgan": "~1.9.1",
     "node-localstorage": "^2.1.6",
+    "nodemailer": "^6.4.10",
     "pug": "2.0.0-beta11"
   },
   "devDependencies": {

@@ -118,3 +118,14 @@
 
   }
     
+
+
+  //// send site review
+
+  // function send_site_message(){
+  //   const site_review = document.getElementById("site_review").value;
+  //   if(site_review){
+  //     var mailer = new XMLHttpRequest();
+  //     mailer.open('POST')
+  //   }
+  // }
