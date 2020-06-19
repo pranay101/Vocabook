@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "start:dev": "nodemon ./bin/www"
+    "start": "node ./bin/www"
   },
   "dependencies": {
     "bcrypt": "^4.0.1",
@@ -22,7 +21,7 @@
     "morgan": "~1.9.1",
     "node-localstorage": "^2.1.6",
     "nodemailer": "^6.4.10",
-    "pug": "2.0.0-beta11"
+    "pug": "^3.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
