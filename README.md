@@ -3,7 +3,7 @@ A node application to boost up your vocabulary.
 
 
 
-Hi, There.  **VocaBook** is the free node application that helps you in enhance your vocabulary. This initially was a RestAPI, but for the user convinence I've  added a basic GUI to it.
+Hi, There.  **VocaBook** is the free node application that helps you enhance your vocabulary. This initially was a RestAPI, but for the user convinence I've  added a basic GUI to it.
 
 
 
